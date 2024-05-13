@@ -1,0 +1,124 @@
+<div class="container mt-4 p-4 shadow">
+    <div id="accordion" class="accordion  accordion-flush">
+        <div class="accordion-item">
+            <h2 id="accordion-header1" class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-content1" aria-expanded="false" aria-controls="accordion-content1">
+                    Estudios
+                </button>
+            </h2>
+            <div id="accordion-content1" class="accordion-collapse collapse" aria-labelledby="accordion-header1" data-bs-parent="#accordion">
+                <div class="accordion-body">
+                    <ul id="list-group-study" class="list-group list-group-flush">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 id="accordion-header2" class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-content2" aria-expanded="false" aria-controls="accordion-content2">
+                    Experiencia Laboral
+                </button>
+            </h2>
+            <div id="accordion-content2" class="accordion-collapse collapse" aria-labelledby="accordion-header2" data-bs-parent="#accordion">
+                <div class="accordion-body">
+                    <ul id="list-group-job" class="list-group list-group-flush">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 id="accordion-header3" class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-content3" aria-expanded="false" aria-controls="accordion-content3">
+                    Otros Estudios
+                </button>
+            </h2>
+            <div id="accordion-content3" class="accordion-collapse collapse" aria-labelledby="accordion-header3" data-bs-parent="#accordion">
+                <div class="accordion-body">
+                    <ul id="list-group-study2" class="list-group list-group-flush">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(async function () {
+        await addStudies();
+        await addJobs();
+        await addStudies2();
+    });
+    async function addStudies(){
+        var studies = [];
+        await $.getJSON('/public/files/Studies.json', function (data) {
+            $.each(data, function (index, study) {
+                var data = {
+                    degree: study.degree,
+                    date: study.date,
+                    institution: study.institution
+                };
+                studies.push(data);
+            });
+        });
+        var studiesQuantity = studies.length;
+        var a = 0;
+        for (let index = 0; index < studiesQuantity; index++) {
+            var content = `
+            <li class="list-group-item">
+                <div class="list-item-header">${studies[index].degree}</div>
+                    <div class="list-item-details">
+                            <span class="list-item-date">${studies[index].date}</span>
+                            <span class="list-item-institution">${studies[index].institution}</span>
+                    </div>
+                </div>
+            </li>`;
+            $('#list-group-study').append(content);
+        };
+    };
+    async function addJobs(){
+        var jobs = [];
+        await $.getJSON('/public/files/Jobs.json', function (data) {
+            $.each(data, function (index, job) {
+                var data = {
+                    position: job.position,
+                    date: job.date,
+                    institution: job.institution,
+                    description: job.description
+                };
+                jobs.push(data);
+            });
+        });
+        var jobsQuantity = jobs.length;
+        var a = 0;
+        for (let index = 0; index < jobsQuantity; index++) {
+            var content = `
+            <li class="list-group-item">
+                <div class="list-item-header">${jobs[index].position}</div>
+                    <div class="list-item-details">
+                            <span class="list-item-date">${jobs[index].date}</span>
+                            <span class="list-item-institution">${jobs[index].institution}</span>
+                    </div>
+                </div>
+                <div">${jobs[index].description}</div>
+            </li>`;
+            $('#list-group-job').append(content);
+        };
+    };
+    async function addStudies2(){
+        var studies2 = [];
+        await $.getJSON('/public/files/Studies2.json', function (data) {
+            $.each(data, function (index, study2) {
+                var data = study2
+                studies2.push(data);
+            });
+        });
+        var studies2Quantity = studies2.length;
+        var a = 0;
+        for (let index = 0; index < studies2Quantity; index++) {
+            var content = `
+            <li class="list-group-item">
+                <ul>${studies2[index]}</ul>
+            </li>`;
+            $('#list-group-study2').append(content);
+        };
+    }
+</script>

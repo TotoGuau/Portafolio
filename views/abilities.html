@@ -1,0 +1,50 @@
+<div class="container mt-4 p-4 shadow">
+    <div id="abilitiesDiv1"><h3>Backend</h3></div>
+    <div id="abilitiesDiv2" class="mt-4"><h3>Frontend</h3></div>
+    <div id="abilitiesDiv3" class="mt-4"><h3>Otros</h3></div>
+</div>
+<script>
+    $(document).ready(async function () {
+        await addAbilities(1);
+        await addAbilities(2);
+        await addAbilities(3);
+    });
+    async function addAbilities(type) {
+        var abilities = [];
+        await $.getJSON('/public/files/Abilities.json', function (data) {
+            $.each(data, function (index, ability) {
+                if (ability.type == type) {
+                    var data = {
+                        title: ability.title,
+                        percentage: ability.percentage,
+                    };
+                    abilities.push(data);
+                }
+            });
+        });
+        var abilitiesQuantity = abilities.length;
+        var a = 0;
+        for (let index = 0; index < abilitiesQuantity; index++) {
+            if (index == 0 || index % 2 == 0) {
+                a += 1;
+                var content = `
+                    <div id="type-${type}-row-${a}" class="row mt-4"><div>
+                `;
+                $('#abilitiesDiv' + type).append(content);
+            };
+            var content = `
+            <div class="col-md">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><img class="col-md" src="/public/img/languages/${abilities[index].title}.svg" style="max-height: 30px;"/>${abilities[index].title}</div>
+                    <div class="panel-body mt-2">
+                        <div class="progress">
+                            <div class="progress-bar bg-dark" role="progress" style="width: ${abilities[index].percentage}">${abilities[index].percentage}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            console.log('type-' + type + '-row-' + a)
+            $('#type-' + type + '-row-' + a).append(content);
+        };
+    }
+</script>

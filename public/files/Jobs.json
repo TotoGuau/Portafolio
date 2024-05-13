@@ -1,0 +1,14 @@
+[
+    {
+        "position":"Servicio al cliente y Soporte técnico",
+        "date":"Mayo 2022 – Noviembre 2023",
+        "institution":"Super TAP TAP ",
+        "description":"Encargado de dar resolución a los problemas de los clientes correspondiente al área de turno y encargado de Consulta y Modificaciones en registros directamente desde Base de datos."
+    },
+    {
+        "position":"Desarrollador BackEnd",
+        "date":"Noviembre 2023 – Abril 2024",
+        "institution":"Grupo SGL",
+        "description":"Encargado del desarrollo del BackEnd del sitio web de la empresa."
+    }
+]

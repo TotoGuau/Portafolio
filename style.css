@@ -1,0 +1,21 @@
+.icon {
+    width: 60px;
+    height: 50px;
+}
+
+.list-item-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.list-item-details {
+    font-size: 0.9em;
+}
+
+.list-item-date {
+    margin-right: 10px;
+}
+
+.list-item-institution {
+    font-style: italic;
+}
